@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package trades.v1;
+
+import "proto/cosmos/v1/events.proto";
+import "google/protobuf/timestamp.proto";  
+
+message Trade {
+  string transaction_hash = 1;
+  string contract_address = 2;
+  string action = 3;
+  string ask_asset = 4;
+  string burn_amount = 5;
+  string commission_amount = 6;
+  string fee_wallet_amount = 7;
+  string offer_amount = 8;
+  string offer_asset = 9;
+  string pool_amount = 10;
+  string receiver = 11;
+  string return_amount = 12;
+  string sender = 13;
+  string spread_amount = 14;
+  string msg_index = 15;
+  uint64 block_number = 16;                
+  google.protobuf.Timestamp block_time = 17; 
+}
+
+message ChoiceTrades {
+  repeated Trade trades = 1;
+}

@@ -1,0 +1,42 @@
+specVersion: v0.1.0
+package:
+  name: choice_exchange
+  version: v0.1.0
+
+imports:
+  injective: https://github.com/streamingfast/substreams-foundational-modules/releases/download/injective-common-v0.2.5/injective-common-v0.2.5.spkg
+
+binaries:
+  default:
+    type: wasm/rust-v1+wasm-bindgen-shims
+    file: ./target/wasm32-unknown-unknown/release/substreams.wasm
+
+protobuf:
+  files:
+    - trades.proto
+  importPaths:
+    - ./proto
+  excludePaths:
+    - sf/substreams
+    - google
+
+modules:
+  - name: map_events
+    use: injective:filtered_events_by_attribute_value
+    initialBlock: 67311117
+    blockFilter:
+      module: injective:index_events
+      query:
+        string: (type:wasm && (attr:action && attr:burn_amount && attr:fee_wallet_amount && attr:pool_amount))
+  
+  - name: choice_trades
+    kind: map
+    inputs:
+    - map: map_events
+    output:
+     type: proto:trades.v1.ChoiceTrades
+
+params:
+  map_events: (type:wasm && (attr:action:swap && attr:burn_amount && attr:fee_wallet_amount && attr:pool_amount))
+
+network: injective-testnet

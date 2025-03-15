@@ -87,7 +87,20 @@ services:
       timeout: 5s
       retries: 5
 
+
+  grafana:
+    image: grafana/grafana:latest
+    # Use the same network as main so that 'localhost' resolves to the same stack
+    network_mode: service:main
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: "admin"
+    depends_on:
+      - postgres
+    volumes:
+      - grafana-data:/var/lib/grafana
+
 volumes:
   db-data:
   ipfs-data:
   ipfs-export-data:
+  grafana-data:
