@@ -1,0 +1,22 @@
+{
+  "generator": "injective-events",
+  "state": {
+    "name": "choice_exchange",
+    "chainName": "injective-testnet",
+    "initialBlock": 67311117,
+    "initialBlockSet": true,
+    "dataType": "events",
+    "messageTypes": [
+      {
+        "eventType": "wasm",
+        "attributes": {
+          "action": "swap",
+          "burn_amount": "",
+          "fee_wallet_amount": "",
+          "pool_amount": ""
+        }
+      }
+    ],
+    "eventsComplete": true
+  }
+}
